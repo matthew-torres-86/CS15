@@ -1,0 +1,138 @@
+/**********************************************************
+* HW3: Metro Simulator
+* Comp 15
+* README
+* Matthew Torres. 3/2/2021. 
+*********************************************************/
+
+Compile/run:
+     - Compile using
+            make MetroSim
+     - run executable with
+            ./MetroSim stationsFile passFile [commands]
+
+
+Program Purpose:
+This homework assignment handles a running train to accomodate
+passengers arriving/departing a metro. Learn how to design and
+modularize code and work with documented libraries.
+
+
+Acknowledgements: 
+    Randy Dang: He helped explain passing input and output streams as 
+    arguments to functions, and helped with error-checking my MakeFile
+    
+    Mia Ferguson: As the TA who administered my Design check-off Mia helped by 
+    checking over my implementation plan and giving me ideas as to what edge 
+    cases could possibly come up. she offered thoughtful feedback on how to 
+    make my implementation plan more through which shaved hours off the time it 
+    would've taken me to write this program. 
+    
+    Elliot Bonner: This coding machine was my go-to guy to complain about all 
+    my various error messages to. Even if he didn't offer any real help this 
+    time around, he's an incredible resource for the future, as well as a
+    wonderful listener.
+    
+    cplusplus.com/reference/vector/vector: an excellent resource for someone
+    who needs to learn the ins and outs of the vector class, and do it quickly
+
+Files: 
+
+main.cpp:
+    A short driver file that handles the file I/O as well as initializing an 
+    instance of the MetroSim class which runs the simulator.
+
+MetroSim.cpp:
+    Implementation of MetroSim class. Handles the running of the Metro 
+    Simulation, which moves the train, boards passengers, deboards passengers, 
+    and prints its status to the screen, as well as an abridged status message 
+    to an output file passed to it from main.
+
+MetroSim.h:
+    The interface of MetroSim class which holds information about key
+    member functions and variables. Some of these functions include: run(), 
+    prompt(), print(), addPassenger(), and moveMetro(). It also includes 
+    information for a station struct, which stores the station name, a 
+    vector of passengers waiting at the station, and a PassengerQueue of 
+    passengers waiting to disembark at the station.
+
+PassengerQueue.cpp
+    Implementation of the PassengerQueue class, which handles the mechanics of 
+    the passengers who are on the train waiting to arrive at their corresponding
+    station. Includes functions that add passengers to the queue, remove 
+    passengers from the queue, return size, front element and whether it is 
+    empty, as well as print each of its passenger elements in the required 
+    format. Uses the std:vector class and its operations under the hood.
+        
+PassengerQueue.h
+    The interface of the PassengerQueue class, which holds information about 
+    the key functions described above. A private vector is included, which 
+    is used to perform all the necessary tasks of the PassengerQueue class.
+
+Passenger.cpp
+    The implementation of the Passenger Class, which in itself is a struct which
+    can be found in Passenger.h. The only function of the passenger class is 
+    to print out the info found in said struct in the required format.
+
+Passenger.h
+    The interface of the passenger class, which contains a struct to store a
+    passenger's ID, "from" station and "to" station. It also contains a public
+    function to print these things in the required format.
+
+stations.txt:
+    an example file containing a list of stations.
+
+test_commands.txt:
+    sample list of commands that you could give to the simulator
+
+the_metroSim:
+    reference implementation for students to see how the program operates
+        
+MakeFile:
+    Used to simplify compilation and testing of the files listed above.
+
+Note:  the program should handle all cases.
+
+Data Structures:
+    This program is rather complex in its implementation of different data 
+    structures. I'd argue that the fundamental structure that encompasses all 
+    aspects of this assignment is the std::vector class. It was, in short, a 
+    lifesaver. But what is this mysterious data storage device, that seems to 
+    do some sort of black magic to dynamically grow and shrink as needed. 
+    It's actually an ArrayList. It has much of the same functionality and 
+    efficiency of an ArrayList while saving the programmer valuable time and 
+    effort. The built in classes allow for simple navigation and alteration 
+    of a list provided you understand the syntax. 
+    
+    Because vectors operate like ArrayLists, the complexity of the 
+    insert(location, data), as long as the location is not the last element, 
+    is order n, because the computer has to iterate each of the elements in 
+    order to copy over the elements to an ArrayList of a larger capacity. 
+    While this all happens "under the hood," programmers should still be 
+    conscious of the amount of time that it takes for these operations to 
+    occur.
+    
+    The PassengerQueue class uses a Queue-style data structure, which is 
+    slightly modified to suit the requirements of the organization and 
+    formatting of the MetroSim. But while this might appear to be an entirely 
+    different data structure than the Vectors used elsewhere in my code, the 
+    PassengerQueue class also uses vectors "under the hood." Many of its 
+    functions are simple modifications or even copies of the vector class 
+    that is used on the back-end. 
+
+Testing:
+    I first spent lots of time testing the PassengerQueue class using 
+    unit_test. The tests I made came from studying how the demo code 
+    operates. The hardest part of this had to be how the passenger queues 
+    organize data, and I admit, I didn't fully get this functioning until the 
+    end, when I diffed my program against the demo program. The tests I ran 
+    on my PassengerQueue class can be found in PassengerQueue_tests.cpp. Many of them utilized hard-coded passengers which were added to a passenger queue, and then I performed operations on them. Using assert, I was able to determine if the operations were performed properly. For example, when I added two elements to a passenger queue then ran dequeue, I checked to make sure that the second element had became the first, and the size had decreased (see PassengerQueue_tests::101).
+    
+    The second part of testing was testing the program as a whole. This was, quite frankly, a massive headache. I went back and forth between diffing, and downloading the files to my text editor to view them and visually compare what was going wrong. Often times it was a passenger had not been added to the right location in a passenger queue. I ended up determining that the functionality of the list that holds the passengers waiting to board the train and that of the list that represents the train are ultimately different, and long story short I rewrote my entire code. But when it finally diffed, it was incredibly rewarding.
+    
+Time Spent:
+    Planning:                 2 hours
+    Writing code:             5 hours
+    testing/Re-writing code: 12 hours
+    Total:                   19 hours
+    
