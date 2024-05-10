@@ -1,0 +1,189 @@
+%%% Testing.cyl
+%%%
+%%% Tests each of the operations that RPNCalc can perform
+%%%
+%%% Author:  Matthew Torres, Tufts University, Spring 2020
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ARITHMETIC OPERATOR TESTS %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+10 30 +         %% ADDITION TEST
+print           %% Expected: 40
+
+10 #t +         %% ADDITION ERROR TEST
+print           %% Expected: <error_msg> \n #t
+
+
+10 30 -         %% SUBTRACTION TEST
+print           %% Expected: -20
+
+10 #f +         %% SUBTRACTION ERROR TEST
+print           %% Expected: <error_msg> \n #f
+
+
+10 30 *         %% MULTIPLUCATION TEST
+print           %% Expected: 300
+
+10 { d } *      %% MULTIPLUCATION ERROR TEST
+print           %% Expected: <error_msg> \n { d }
+
+
+30 10 /         %% DIVISION TEST
+print           %% Expected: 3
+
+10 30 /         %% DIVISION TEST 2
+print           %% Expected: 0
+
+10 0 /          %% DIVISION 0 TEST
+print           %% Expected: <error_msg> \n 0
+
+10 { p } /      %% DIVISION ERROR TEST
+print           %% Expected: <error_msg> \n #f
+
+
+30 10 %         %% MOD TEST
+print           %% Expected: 0
+
+10 30 %         %% MOD TEST 2
+print           %% Expected: 10
+
+10 0 /          %% MOD 0 TEST
+print           %% Expected: <error_msg> \n 0
+
+10 { p } /      %% MOD ERROR TEST
+print           %% Expected: <error_msg> \n #f
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% COMPARITIVE OPERATOR TESTS %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+10 30 >         %% > TEST
+print           %% Expected: #f
+
+10 #t >         %% > ERROR TEST
+print           %% Expected: <error_msg> \n #t
+
+
+10 30 <         %% < TEST
+print           %% Expected: #t
+
+10 #f <         %% < ERROR TEST
+print           %% Expected: <error_msg> \n #f
+
+
+10 30 >=        %% >= TEST 1
+print           %% Expected: #f
+
+30 30 >=        %% >= TEST 2
+print           %% Expected: #t
+
+10 { d } >=     %% >= ERROR TEST
+print           %% Expected: <error_msg> \n { d }
+
+
+10 30 <=        %% <= TEST 1
+print           %% Expected: #t
+
+30 30 <=        %% <= TEST 2
+print           %% Expected: #t
+
+10 { d } <=     %% <= ERROR TEST
+print           %% Expected: <error_msg> \n { d }
+
+
+30 10 ==        %% == TEST 1
+print           %% Expected: #f
+
+30 30 ==        %% == TEST 2
+print           %% Expected: #t
+
+30 { d } ==     %% == TEST 3
+print           %% Expected: #f
+
+30 { 30 } ==    %% == TEST 4
+print           %% Expected: #f
+
+30 { 30 } exec ==     %% == TEST 5
+print                 %% Expected: #t
+
+#t #t ==        %% == TEST 6
+print           %% Expected: #t
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DATUMSTACK MODIFIER TESTS %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+clear           %% CLEAR TEST
+print           %% Expected: <error_msg> 
+
+
+1 2 drop        %% DROP TEST
+print           %% Expected: 1
+
+clear           %% DROP ERROR TEST
+drop            %% Expected: <error_msg> 
+
+
+2 dup print     %% DUP TEST
+drop print      %% Expected: 2 \n 2
+
+clear           %% DUP ERROR TEST
+dup             %% Expected: <error_msg>
+
+
+2 3 swap print  %% SWAP TEST
+drop print      %% Expected: 2 \n 3
+
+clear           %% DUP ERROR TEST
+swap            %% Expected: <error_msg>
+
+
+#t not print    %% not TEST
+drop print      %% Expected: #f \n <error_msg>
+
+{ d } not       %% not ERROR TEST
+2 not           %% Expected: <error_msg> 2x
+
+clear           %% not ERROR TEST 2
+not             %% Expected: <error_msg>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% COMPLEX COMMANDS TESTS %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{ 3 { 4 5 + } exec * }                 %%% EXEC TEST 1
+exec print drop print                  %%% Expected: 45 \n <error_msg>
+
+{ 3 { 4 { 5 5 / } exec + } exec * }    %%% EXEC TEST 2 
+exec print drop print                  %%% Expected: 15 \n <error_msg>
+
+clear { 3 { 4 5 + } * }                %%% EXEC ERROR TEST 1
+exec print                             %%% Expected: <error_msg> x2
+
+
+6 { fib.cycl } file                    %%% FILE TEST 1
+print                                  %%% Expected: 8
+
+5 { fact.cycl } file                   %%% FILE TEST 2
+print                                  %%% Expected: 3628800
+
+6 5 file                               %%% FILE ERROR TEST 1
+print                                  %%% Expected: <error_msg>
+        
+5 { fact.cy } file                     %%% FILE ERROR TEST 2
+print                                  %%% Expected: <error_msg?
+%%%{ the end } print quit              %%% uncomment to test quit function.
+                                       %%% leave commented to ensure that 
+                                       %%% eof() causes termination.
+
+%%% if tests are included in the file tests above, as both files use ifs %%

@@ -1,0 +1,94 @@
+10 30 +
+print
+10 #t +
+print
+10 30 -
+print
+10 #f +
+print
+10 30 *
+print
+10 { d } *
+print
+30 10 /
+print
+10 30 /
+print
+10 0 /
+print
+10 { p } /
+print
+30 10
+print
+10 30
+print
+10 0 /
+print
+10 { p } /
+print
+10 30 >
+print
+10 #t >
+print
+10 30 <
+print
+10 #f <
+print
+10 30 >=
+print
+30 30 >=
+print
+10 { d } >=
+print
+10 30 <=
+print
+30 30 <=
+print
+10 { d } <=
+print
+30 10 ==
+print
+30 30 ==
+print
+30 { d } ==
+print
+30 { 30 } ==
+print
+30 { 30 } exec ==
+print
+#t #t ==
+print
+clear
+print
+1 2 drop
+print
+clear
+drop
+2 dup print
+drop print
+clear
+dup
+2 3 swap print
+drop print
+clear
+swap
+#t not print
+drop print
+{ d } not
+2 not
+clear
+not
+{ 3 { 4 5 + } exec * }
+exec print drop print
+{ 3 { 4 { 5 5 / } exec + } exec * }
+exec print drop print
+clear { 3 { 4 5 + } * }
+exec print
+6 { fib.cycl } file
+print
+5 { fact.cycl } file
+print
+6 5 file
+print
+5 { fact.cy } file
+print

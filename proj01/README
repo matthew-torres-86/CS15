@@ -1,0 +1,120 @@
+----------------------------------------------------------------------
+|                      COMP 15 PROJECT 1: CalcYouLater               |
+|                                Phase 2                             |
+| Matthew Torres                                                     |
+| 3/15/2021                                                          |
+----------------------------------------------------------------------
+
+                           ---- PURPOSE ----
+This program performs calculations and other operations in reverse polish 
+notation, using a DatumStack to store input evaluated by functions written in
+RPNCalc.cpp. This calculator can do the following-
+    - Computations using basic operations (+, -, *, /, mod)
+    - Comparisons using basic operators (<, >, <=, >=, ==)
+    - Modify the stack by adding, duplicating, dropping, swapping and clearing
+        Data stored on it
+    - Print the status of the DatumStack
+    - Parse and store information entered as an rstring
+    - open and execute commands from a file
+    - perform commands based on the result of a boolean
+    - quit the program
+     
+
+                      ---- ACKNOWLEDGEMENTS ----
+Thanks to Jason Wang for diagnosing my error where my testing in parser.cpp 
+completely ignored the first character, without even seeing what I was doing.
+
+Also thanks to Stephen Charkoudian to directing me towards the information 
+about istringstream which I used to modularize my code 
+
+My undying love and gratitude goes to Mark Sheldon, who wrote the got_int() 
+function, .cyl files, and more, all of which were extremely crucial in 
+completion of this project 
+
+                            ---- FILES ----
+DatumStack.h: The interface for the DatumStack class, which will be used to
+store data for calculations performed in RPNCalc.cpp
+
+DatumStack.cpp: This is the implementation for the DatumStack class, which 
+contains key functions for use of DatumStack including pop(), push(), top(),
+isEmpty(), and size(). it uses the std::vector class under the hood.
+
+DatumStack_tests.cpp: This is the test file for DatumStack.cpp, which allows
+me to isolate the DatumStack class and ensure that each of its individual 
+functions work properly before continuing on and using it in RPNCalc.
+
+RPNCalc.h: This is the interface for the RPNCalc class, which contains 
+information about key functions used in its implementation. 
+
+RPNCalc.cpp: This is the implementation of the RPNCalc class, which uses 
+a DatumStack object to store data to be used in computations. It reads in
+commands directly from a user, from a file, or from an rstring entered by a 
+user. It performs various computations on the datum in the stack as well catches and outputs runtime errors caused by incorrect entries. 
+
+Main.cpp: This is the driver for RPNCalc.cpp. it creates an RPNCalc object, 
+calls its only public member function (run()), and then deletes the RPNCalc 
+object.
+
+testing.cyl: This is the testing command file, which when "compiled", and piped
+into the excecutable formed by MakeFile, tests the functionality of each 
+of RPNCalc's operations and ensures that the errors are handled properly.
+    
+
+MakeFile: Used for compilation and running of the driver file
+README: Documentation.
+
+
+                 ---- COMPILE / RUN INSTRUCTIONS ----
+To run unit tests on just the DatumStack class, type unit_test into the command 
+line.
+
+To compile, type Make CalcYouLater into the command line while in the directory
+with the necessary provided files.
+
+Run with ./CalcYouLater 
+
+
+                ---- DATA STRUCTURES / ALGORITHMS ---- 
+    The data structure used for this assignment is the DatumStack, which 
+operates as a vector with limitations. Its isEmpty() function, clear() 
+function, size() function, and pop() function all use std::vector class 
+functions verbatim, and its pop() and top() functions are only slightly modified
+to throw error messages. The DatumStack is an excellent choice of data structure
+for this program as the first on, last off design is precisely what is necessary
+to complete calcualtions in Reverse Polish Notation, because as you get to a 
+command, you can simply pop the data you need off of the stack and use it in
+your calculation. 
+
+    The Stack data structure can be used in a variety of scenarios where you 
+need to work your way backwards. For example, you can use stacks to replicate 
+the "undo" feature that we use on our computers every day. The results of an
+action are pushed onto the stack, and when undo is called the most recent change
+is removed from the stack and the next most recent change replaces it. Another
+possible use for a stack was something we did in lab recently-- parsing a 
+Binary Search Tree. As you go through the subtrees, you push the right subtree
+onto the stack then the left, then evaluate the top of the stack. If there are 
+no more subtrees to add, work your way backwards to evaluate each of the nodes
+on the stack until the stack is empty.
+
+
+
+                           ---- TESTING ----
+    Testing my project was very difficult, and it took a majority of 
+the time that I spent working on this assignment. Between my program throwing 
+extra errors and trouble with executing fib.cylc and fact.cylc, I've spent over
+10 hours tweaking issues such as popping data off the stack when an error 
+message is thrown, and handling of random extra integers being sent back when 
+fib and fact recurse. 
+
+    I also uncovered an issue that had to do with reading commands from a file
+that resulted in the final query being excecuted twice, which I had to fix 
+by checking if the end of the file had been reached in RPNCalc.cpp:49, and 
+returning if it had.
+
+Finally I had an issue where my parseRstring resulted in an extra phatom space 
+being added after each rstring which caused diff to fail mysteriously. 
+This was easily resolved by rearranging the order in which rstring components
+were concatenated, removing the extra space.
+
+                         ---- TIME SPENT ----
+I've spent about 20 hours on this project.
