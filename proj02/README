@@ -1,0 +1,169 @@
+----------------------------------------------------------------------
+|                      COMP 15 Project 2: SixDegrees                 |
+| Matthew Torres                                                     |
+| 4/21/2021                                                          |
+----------------------------------------------------------------------
+
+                           ---- PURPOSE ----
+This program utilizes the Graph data structure to determine a path between 
+artists via their collaborations in different songs. It will do this in
+3 different ways- Breadth first, Depth first, and exclusive breadth first. 
+
+                      ---- ACKNOWLEDGEMENTS ----
+Amy Bui: The TA who did my design checkoff and provided extremely useful 
+feedback on my implementation plan.
+
+Juli Vegas and Lexi Blair: For a great and informative semester of lab!
+
+                            ---- FILES ----
+CollabGraph.h: The provided interface for the CollabGraph class, which contains
+the public and private member function declarations for the key functions of 
+the class, as well as the Vertex and Edge structs used by the CollabGraph data 
+structure, and the unordered map that stores the vertices.
+
+CollabGraph.cpp: The implementation for the CollabGraph class which contains 
+function bodies for all of the accessor and modifier functions of the class, 
+which will eventually be utilized by SixDegrees.cpp to find paths between 
+different artists via their collaborations. 
+
+SixDegrees.h: The interface for the SixDegrees class which contains declarations
+for its public and private member functions, as well as the CollabGraph and 
+vector of artists which are both used throughout the program 
+
+SixDegrees.cpp: The implementation of the SixDegrees class, which populates the 
+graph and handles the BFS, DFS and NOT commands through various public and
+private member functions.
+
+testgraph.txt: A testing file that contains a smaller data set than 
+artists.txt which can be easily drawn manually to ensure expected behavior
+
+commands.txt: An all-inclusive, comprehensive commands file to use for testing 
+each of the three commands. Includes multiple different normal cases, edge cases
+as well as cases where errors are expected.
+    
+MakeFile: Allows for easy command-line entries from the user for compilation
+and providing.
+
+README: This documentation file, which contains compile/run instructions, a 
+file-by file description, answers to spec questions and the amount of time 
+spent on this assignment.
+
+
+                 ---- COMPILE / RUN INSTRUCTIONS ----
+For testing using the included commands.txt file, uncomment code in lines 101-
+108 of SixDegrees.cpp to format the output cleanly. 
+Compile with "make SixDegrees" in the working directory
+Run with  "./SixDegrees artists.txt commands.txt [outputfile.txt]"
+
+
+                   ---- Questions from the Spec---- 
+1. What is the difference between BFS and DFS. What are their pros and cons?
+Breadth first search works its way outward from the node only after visiting
+every one of the node's neighbors. It searches each of the nodes with 1 degree 
+of separation from the source, then 2, then 3 and so on. BFS finds the shortest
+possible path between two nodes. Depth first search goes through a string of
+nodes without searching each of the node's neighbors. For this reason, DFS 
+finds any path between the nodes, not always the shortest one.  
+
+A major pro for BFS is the fact that it returns the shortest path. It can
+help with space management because the longer the path, the longer the 
+stack that holds it. The con, however, is the time it takes to find paths
+between distant elements. Because it has to search through each of the elements
+in each "shell" surrounding the source vertex, if there are a lot of elements,
+this could take a long time.
+DFS is the opposite. It is very inefficient when it comes to finding a 
+reasonably-sized path, but it will find a path between distant elements much
+faster than DFS. 
+
+2. How did you choose to implement the not command. How does it compare to 
+BFS and DFS
+The not command is, simply put, BFS with a very minor modification. All I needed
+to do to turn BFS int NOT was mark all the excluded vertices as visited, and
+therefore they will not be explored and the algorithm will be forced to find
+the next available path.
+
+3. State what you think your runtime is for each of the commands (excluding 
+quit) and why.
+I believe that the runtime for BFS is O(V + E), because worst case, if there is no valid path from the destination vertex to the source vertex, the algorithm 
+must search through each vertex in the graph and each edge in the graph once.
+
+The same can be said for DFS, because every vertex and every edge is still 
+visited once.
+
+NOT has a runtime complexity of O((V + E) - Vexcluded) where 
+Vexcluded are the vertices that are excluded from the path, which remain 
+unsearched. 
+
+                ---- DATA STRUCTURES / ALGORITHMS ---- 
+The major data structure used here is the Graph, which is a set of vertices 
+and a set of edges that connect them. It is used to show connections between
+multiple artists through their collaborations in songs. This graph, specifically
+is an unweighted, undirected graph of the Adjacency list variety. It stores 
+vertices in an unordered map, with edges being stored in list members within 
+the vertices. One example of a real-world applications of the Graph data 
+structure are virtual maps (google maps, etc.), where the edges represent 
+roads that can be either uni-directional or multi-directional. The vertices 
+represent locations and intersections of these roads. Another real-world
+representation of graphs would be wiki-pages. Each page is a vertex in the
+graph, and the links between them are the edges. 
+
+I did use a number of other data structures for this assignment. I had a 
+vector of artists in my SixDegrees file which stored each artist that I
+added to the graph to make it easy to populate the edges of the graph. Each
+time I added an artist I could check its discography off of the discography of 
+each of the previously added artists in the vector to determine where edges 
+should go. Furthermore, I used a Stack to store paths wherever necessary. 
+Because of the stack's first in last out operationality, it was easy to 
+work backwards in report_path and add each of the vertices to the stack in
+reverse order starting from the destination vertex and travesing along the
+predecessors to the destination vertex. Finally I used a queue of excluded 
+artists when dealing with the not command, as well as during the Breadth first 
+algorithm because the queue was a simple way to store each of the vertices, use 
+them, pop them, and continue searching through them until the queue is empty.
+
+The algorithms I used are the Breadth first and Depth first algorithms for 
+graph traversals. Breadth first iterates through each of the neighbors of the
+first vertex, pops them onto a queue, then finds each of the neighbors of 
+everything on the queue, and pops them all onto the queue until it finds the 
+vertex it is searching for. The queue's first in last out functionality allows 
+the algorithm to search each of the vertex's neighbors with 1 degree of 
+separation before continuing to those with 2, 3 and so on. The Depth first 
+traversal algorithm recursively goes to the first neighbor of the source 
+vertex, then the first neighbor of its neighbor, and so on, while checking each 
+time that the current vertex has not been visited before. Once it finds a
+visited node, the path stops cold and it moves on to the next possible path.
+
+                           ---- TESTING ----
+Testing phase1 was very smooth sailing. I made a testing main in SixDegrees.cpp, as well as some modifications to the run function in SixDegrees.cpp to ensure that the functions worked as required. I also made a smaller more controlled testing data file (testgraph.txt) that allowed me to compare the output of my tests to what I expected based on drawings I made myself.
+
+Testing phase2 was also relatively straight forward. I made a testing file 
+(commands.txt) which I read into my six degrees file. Before adding tests for 
+DFS I wanted to ensure that the ouput diffed against the reference 
+implementation. Once it did, I added DFS tests and read them over to make sure
+the paths were valid.
+
+commands.txt is fully commented to show what tests are being performed. As 
+mentioned above, to prevent the excess of "invalid commands", you can uncomment
+a chunk of code in sixDegrees. I tested sevaral normal cases, cases where
+the artists did not exists, and cases where no paths are found.  
+
+I did run into a few issues. Primarily I used ">>" to read in the commands 
+before using getline() to read in the names of the artists, forgetting that 
+I need to use ignore(), to switch between the two. Also, when diffing, I 
+learned that the reference implementation used getline() to read in the commands
+anyway, so I changed that to allow it to diff. 
+
+An edge case I found while testing that I needed to adjust for was if, in the
+not command, the first artist was excluded, the program would continue on as
+if there were no exclusions.
+
+The only other issue I ran into was with the set_predecessor() function's 
+arguments being in the reverse order of what I expected them to, resulting in
+seg faults. But this was an easy fix.
+
+                         ---- TIME SPENT ----
+I spent about 14 hours on the this assignment. About 2 hours was spent 
+understanding the problem and preparing for my design checkoff, 2 hours coding
+the required elements for phase1, about 3 hours coding the required elements 
+for phase2, about 4 hours testing and making modifications, and about 3 hours 
+on documentation, clean up, etc.  

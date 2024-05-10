@@ -1,0 +1,145 @@
+%%_Test_Commands_File_%%
+%%_Matthew_Torres_%%
+
+%%_NOTE:_Comments_will_appear_as_invalid_commands_%%
+%%_unless_you_uncomment_lines_104-111_in_SixDegrees.cpp_%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%_BFS_TESTS_%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%_Basic_BFS_Test_%%
+bfs
+Meghan Trainor
+Megan Thee Stallion
+
+%%_Medium_BFS_Test_%%
+bfs
+PSY
+SZA
+
+%%_BFS_Test,_Unknown_first_artist_%%
+bfs
+Megan Trainor
+Megan Thee Stallion
+
+%%_BFS_Test,_Unknown_second_artist_%%
+bfs
+Meghan Trainor
+Meghan Thee Stallion
+
+%%_BFS_Test,_both_artists_unknown_%%
+bfs
+Megan Trainor
+Meghan Thee Stallion
+
+%%_BFS_Test,_no_path_%%
+bfs
+Rihanna
+Rick Astley
+
+%%_End_BFS_Tests_%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%_NOT_TESTS_%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%_Basic_NOT_Test_%%
+not
+Meghan Trainor
+Megan Thee Stallion
+Nicki Minaj
+Ariana Grande
+*
+
+%%_Another_NOT_Test_%%
+not
+PSY
+SZA
+Calvin Harris
+*
+
+%%_NOT_test_no_artists_given_%%
+not
+*
+
+%%_NOT_test_first_artist_excluded_%%
+not
+Ariana Grande
+SZA
+Ariana Grande
+*
+
+%%_NOT_Test,_Unknown_first_artist_%%
+not
+Megan Trainor
+Megan Thee Stallion
+Ariana Grande
+*
+
+%%_NOT_Test,_Unknown_second_artist_%%
+not
+Meghan Trainor
+Meghan Thee Stallion
+Ariana Grande
+*
+
+%%_NOT_Test,_Unknown_excluded_artist_%%
+not
+Meghan Trainor
+Megan Thee Stallion
+Ariana Grande
+Megan Monroe :P
+*
+
+%%_NOT_Test,_all_artists_unknown_%%
+not
+Megan Trainor
+Meghan Thee Stallion
+Megan Monroe :P
+*
+
+%%_NOT_Test_all_possibilities_excluded_%%
+not
+Meghan Trainor
+Megan Thee Stallion
+Ariana Grande
+Charlie Puth
+Beyonce
+Cardi B
+John Legend
+*
+
+%%_End_NOT_Tests_%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%_DFS_TESTS_%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%_Will_not_diff_below_this_line_%%
+
+%%_Basic_DFS_Test_%%
+dfs
+Meghan Trainor
+Megan Thee Stallion
+
+%%_DFS_Test,_Unknown_first_artist_%%
+dfs
+Megan Trainor
+Megan Thee Stallion
+
+%%_DFS_Test,_Unknown_second_artist_%%
+dfs
+Meghan Trainor
+Meghan Thee Stallion
+
+%%_DFS_Test,_both_artists_unknown_%%
+dfs
+Megan Trainor
+Meghan Thee Stallion
+
+%%_DFS_Test,_no_path_%%
+dfs
+Rihanna
+Rick Astley
