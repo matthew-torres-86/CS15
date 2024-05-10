@@ -1,0 +1,135 @@
+/**********************************************************
+* HW4: BinarySearchTree
+* Comp 15
+* README
+* Matthew Torres. 3/20/2021. 
+*********************************************************/
+
+Compile/run:
+     - Compile using
+            make
+            or
+            make hw3_test1
+     - run executables with
+            ./hw3
+            or
+            ./hw3_test1
+
+Program Purpose:
+    This program demonstrates the implementation of a Binary Search Tree, with 
+    several key functions used to modify and display information about the tree.
+
+
+Acknowledgements: 
+    Lab06: 
+        Lab06 and my TA's Juli and Lexi had a great presentation prepared
+        that gave us all the understanding we needed about BST transversals and 
+        algorithms to complete this assignment. 
+
+Files: 
+    hw3.cpp:
+        The driver file for BinarySearchTree.cpp, which creates a BST and runs 
+        many tests on its different functions by displaying its information 
+        after performing different actions
+
+    BinarySearchTree.h:
+        This is the interface of the BinarySearchTree class which contains 
+        information about its public and private member functions as well as 
+        the node struct which is used to store its data.
+
+    BinarySearchTree.cpp:
+        This is the implementation of the BinarySearchTree class defined in 
+        BinarySearchTree.h, which contains the function bodies for functions
+        that add to, copy from, remove from, and display information about 
+        BinarySearchTree objects. 
+
+    MakeFile:
+        Used to simplify compilation and testing of the files listed above.
+
+
+Questions:
+    Q1: The implementation for the remove function will use find_min() because
+    it helps to modularly find the smallest value of the right subtree required 
+    for the case where the node to be removed has 2 children
+     
+    Q2: While it is possible for the publicly defined find_min() and find_max() 
+    to return a value that does not point to a valid node, the privately 
+    defined functions will seg fault as they are trying to dereference the null 
+    pointer
+
+    Q3: a) If find_min() and find_max() are passed a nullptr, these functions 
+    segfault because while the publicly defined shells handle this condition, 
+    by returning the maximum int, these private versions do not, and they
+    end up derefecencing a nullptr.  
+
+    Q4: find_min(Node *)
+    * if the left child of the current node is null, return the current node 
+      because you have found the leftmost (minimum) node in the tree
+    * if not, recurse with the left child of the current node 
+        
+    Q5: find_max(Node *)
+    * if the right child of the current node is null, return the current node 
+      because you have found the rightmost (maximum) node in the tree
+    * if not, recurse with the right child of the current node 
+    
+    Q6: post_order_delete(Node *)
+    * if the current node = nullptr, the (sub)tree is empty, so return;
+    * recursively call post_order_delete on the left subtree then the right
+      subtree
+    * delete the current node
+    
+Data Structures:
+    The data structure used in this program is a Binary Search Tree. It is 
+    useful for this implementation because of its sorted nature as described
+    by its invariants:
+        1. Each parent has a max of 2 children
+        2. The value of the left child is always less than that of the parent,
+        and the value of the right child is always greater than that of the 
+        parent.
+    These invariants inform the makeup of the Node struct as found in 
+    BinarySearchTree.h. Each node has pointer to a left child node and a right 
+    child node, as well as a count to handle duplicate elements being inserted. 
+    Whenever you insert or remove elements from the Binary Search Tree you need 
+    to maintain these invariants. This requires great care in the algorithms 
+    that are used for the insert and remove functions. 
+    When you insert a new node, you must recursively travel over the elements of
+    the tree comparing the value to be inserted to the in the tree. This way,
+    when you find an empty place for the node to be inserted, the tree will
+    remain sorted according to the left lesser child and the right greater 
+    child invariant above.
+    Furthermore, when you remove a node there are several cases that you need 
+    to look for. When the child is a duplicate, you can simply lower the count.
+    When the node has no children, you can simply remove the node. When the 
+    node has 1 child, you need to replace the node with its child. When the 
+    node has 2 children, you need to replace the node with the greatest node in 
+    the left subtree.
+    This may seem like a lot of work, but the payoff in maintaining this 
+    sortedness is excellent. You can find an element in nearly O(log N) time 
+    assuming the tree is mostly balanced. However it's not until you work with 
+    100% balanced AVL trees that you get to true O(log N) time.
+
+Testing:
+    I found that the hw3.cpp file did a pretty decent job at testing most of
+the functionality of the BinarySearchTree class. As I implemented parts of the 
+BST, I little by little started uncommenting different segments of hw3.cpp. 
+Once I got that all working, I made my own file to test what I perceived to be
+edge cases, such as removing multiple elements in a row, removing the root, and 
+inserting many elements with a vast range of values. Removing the root proved 
+to be more difficult than expected. My first solution actually hindered the 
+function's ability to remove non-roots with 2 children. I then built off of that
+to test the removal of elements/roots in a degenerate (linked-list like) BST, 
+which worked well. Finally I played around with printing a tree that had been
+deleted by creating my own post_order_delete public shell function (commented), 
+to make sure everything had been deallocated properly. However, When
+I printed the data, I received garbage values, which I assume is a result of
+how the print function deals with an empty tree? Either way I figured the 
+lack of public delete function meant that there was no reason why I had to 
+continue to investigate, as my delete function would not be tested in that
+regard. 
+    
+Time Spent:
+    Planning:                 1 hour
+    Writing code:             5 hours
+    Testing:                  3 hours
+    Documentation:            2 hours
+    Total:                   11 hours
