@@ -1,0 +1,87 @@
+----------------------------------------------------------------------
+|                      COMP 15 HOMEWORK 1: LISTS                     |
+| Matthew Torres                                                     |
+| 2/17/2021                                                          |
+----------------------------------------------------------------------
+
+                           ---- PURPOSE ----
+This program offers two different lists that store characters. They
+maintain the stored characters in their given order, with some extra
+features, such as the ability to concatenate lists.
+
+                      ---- ACKNOWLEDGEMENTS ----
+My wonderful lab TA Juli for describing ArrayList and Linked List 
+implementation
+
+                            ---- FILES ----
+CharArrayList.h: Interface of the CharArrayList class which includes key 
+information about the CharArrayList class including definitions of member 
+functions and variables.
+
+CharArrayList.cpp: Implementation of the CharArrayList class which includes     
+components to the ArrayList including default, secondary, third, and copy 
+constructors, a deconstructor, and an overloaded assignment operator. It also 
+includes member functions for adding elements to, removing elements from, 
+editing, returning key information about and printing the ArrayList. 
+    
+CharLinkedList.h: Interface of the CharLinkedList class which includes key 
+information about the CharArrayList class including definitions of member 
+functions and variables.
+
+CharLinkedList.cpp: Implementation of the CharLinkedList class which 
+includes important components to the ArrayList including default, secondary,    
+third, and copy constructors, a deconstructor, and an overloaded assignment 
+operator. It also includes member functions for adding elements to, removing 
+elements from, editing, returning key information about and printing the 
+ArrayList. 
+    
+CharList_tests.cpp: A file that provides tests to the unit_test testing 
+framework that compiles and runs various tests on the above files to ensure 
+that they are working properly
+    
+MakeFile:
+README:
+
+
+                 ---- COMPILE / RUN INSTRUCTIONS ----
+Simply type "unit_test" to run the unit tests for the CharArrayList
+and CharLinkedList classes. This folder contains no driver, or
+application, besides the unit tests for the list classes.
+
+
+                ---- DATA STRUCTURES / ALGORITHMS ---- 
+    Both ArrayLists and LinkedLists are used as fundamental parts of this 
+assignment. ArrayLists are useful because you can easily access the data stored 
+by going to the the index in the private member Array. It is also relatively 
+easy to add more elements to the back of your list and keep track of the 
+length. However in order to add elements to your list beyond the allocated 
+capacity, or add elements to the front or middle of your list you must copy the 
+entire list, which can pose memory issues for larger lists. 
+    Linked lists solve this problem, because they are very dynamic, making it
+easy to add elements anywhere without having to copy. However, with this comes 
+a trade off of complexity as you have to parse through a chain of pointer to 
+perform most tasks. Changes to linked lists can be made to help relieve this 
+issue, such asadding a pointer to the element at the end of the list that 
+updates every time the list is pushed at the back. However for functions such 
+as insertAt() and removeAt(), you still have to parse through each pointer to 
+get to the location necessary.
+
+                           ---- TESTING ----
+Overall, testing went fairly smoothly. Most time was spent figuring out how 
+best to utilize the unit_test framework. I created a test for each member 
+function, with some exceptions for functions that could be easily grouped 
+together (see first_last_element_at() tests). For most tests I used the 
+parametrized constructor that took an array, and performed tests to ensure that 
+all parts of the required tasks had been completed. For example, for the 
+insert_at tests I not only asserted that the inserted value was in the right 
+place, but also that all the subsequent values were shifted down the list. I 
+did run into a few segmentation faults with the linkedList implementation, 
+which occurred when I tested the third and copy constructor. I used print 
+statements to debug where they were occurring, and found a way to simplify my 
+code to produce the desired results. 
+
+
+                         ---- TIME SPENT ----
+I spent about 9 hours on this assignment: 1 hour understanding the problem, 1 
+hour on documentation, and the remaining 7 hours coding, testing and debugging.
+        
